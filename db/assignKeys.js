@@ -15,7 +15,7 @@ async function assignInvestorsToStartups() {
     const allStartups = await startups.find({}).toArray();
     const allInvestors = await investors.find({}).toArray();
 
-    // Assign a random subset of investors to each startup
+    
     for (const startup of allStartups) {
       const assignedInvestors = allInvestors.sort(() => 0.5 - Math.random()).slice(0, Math.min(5, allInvestors.length));
       
