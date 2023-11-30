@@ -2,9 +2,9 @@
 // calculating the total funding and the count of startups in each category.
 const { MongoClient } = require('mongodb');
 
-async function assignInvestorsToStartups() {
+async function query1() {
     const uri = "mongodb+srv://mesiamihir:J5HLGDh488SisJek@cluster0.begu2sk.mongodb.net/?retryWrites=true&w=majority";
-    
+
     const client = new MongoClient(uri);
    
 

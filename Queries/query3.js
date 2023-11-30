@@ -4,7 +4,7 @@
 
 const { MongoClient } = require('mongodb');
 
-async function query2() {
+async function query3() {
     const uri = "mongodb+srv://mesiamihir:J5HLGDh488SisJek@cluster0.begu2sk.mongodb.net/?retryWrites=true&w=majority";
     const client = new MongoClient(uri);
 
@@ -33,7 +33,7 @@ async function query2() {
 }
 
 async function main() {
-    const result = await query2();
+    const result = await query3();
     console.log(result);
 }
 
