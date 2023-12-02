@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Global Startup Database</title>
+    <%- include('./partials/css.ejs') %>
+  </head>
+  <body>
+
+    <div class="container">
+      <%- include("./partials/navBar.ejs") %>
+      <h1>Global Startup Database</h1>
+
+      <%- include("./partials/errMsg.ejs") %>
+
+      
+      <div class="col-8 mb-4">
+        <a href="/investors/createInst" class="btn btn-primary btn-sm">Create Institutional Investor</a>
+      </div>
+
+      <div class="col-4 mb-4">
+        <a href="/investors/createIndi" class="btn btn-primary btn-sm">Create Individual Investor</a>
+      </div>
+   
+      <div class="row">
+
+        <h3> Institutional Investor</h3>
+  
+
+        <% instInvestor.forEach(function(f){ %>
+        <div class="col-4 mb-2">
+          <div class="card p-2">
+            <div class="card-title">
+              <label
+              >Name: <output><%= f.commonDetails.name %></output>
+            </label>
+            </div>
+            <div class="card-text">
+              
+              <div>
+                <label
+                  >Contact Info: <output><%= f.commonDetails.contactInfo %></output>
+                </label>
+              </div>
+              <div>
+                <label
+                  >Country: <output><%= f.commonDetails.country %></output>
+                </label>
+              </div>
+              <div>
+                <label>Founding Date: <output><%= f.institutionalDetails.foundingDate %></output>
+                </label>
+              </div>
+              <div>
+                <label>Number of Members: <output><%= f.institutionalDetails.numberOfMembers %></output>
+                </label>
+              </div>
+              <div>
+                <label>Assests Under Management: <output><%= f.institutionalDetails.assestsUnderManagement %></output>
+                </label>
+              </div>
+
+              <div>
+                <a
+                  type="button"
+                  class="btn btn-outline-primary btn-sm"
+                  href="/investor/inst/<%= f._id %>"
+                  >Edit</a
+                >
+               
+                <form action="/investor/delete/<%= f._id %>" method="POST">
+                  <!-- <input type="hidden" name="investorID"> -->
+                <button
+                  type="submit"
+                  class="btn btn-outline-danger btn-sm"
+                  >Delete</button
+                >
+               
+                
+                </form>
+              </div>
+            </div>
+            <!-- /.card-text -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col-4 -->
+
+        <% }); %>
+
+        <h3> Individual Investor</h3>
+  
+
+        <% indiInvestor.forEach(function(f){ %>
+        <div class="col-4 mb-2">
+          <div class="card p-2">
+            <div class="card-title">
+              <label
+              >Name: <output><%= f.commonDetails.name %></output>
+            </label>
+            </div>
+            <div class="card-text">
+              
+              <div>
+                <label
+                  >Contact Info: <output><%= f.commonDetails.contactInfo %></output>
+                </label>
+              </div>
+              <div>
+                <label
+                  >Country: <output><%= f.commonDetails.country %></output>
+                </label>
+              </div>
+              <div>
+                <label>Birth Date: <output><%= f.institutionalDetails.birthdate %></output>
+                </label>
+              </div>
+              <div>
+                <label>Net Worth: <output><%= f.institutionalDetails.netWorth %></output>
+                </label>
+              </div>
+              
+
+              <div>
+                <a
+                  type="button"
+                  class="btn btn-outline-primary btn-sm"
+                  href="/investor/ind/<%= f._id %>"
+                  >Edit</a
+                >
+
+                 <form action="/investor/delete/<%= f._id %>" method="POST">
+                  <input type="hidden" name="investorID" value="<%= f._id %>">
+                <button
+                  type="submit"
+                  class="btn btn-outline-danger btn-sm"
+                  >Delete</button
+                >
+                <a
+                type="button"
+                class="btn btn-outline-primary btn-sm"
+                href="/investor/invests-in/<%= f._id %>"
+                >Investments</a
+              >
+                </form>
+              </div>
+            </div>
+            <!-- /.card-text -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col-4 -->
+
+        <% }); %>
+      </div>
+      <!-- /.row -->
+
+      <%- include("./partials/footer.ejs") %>
+    </div>
+    
+  </body>
+</html>

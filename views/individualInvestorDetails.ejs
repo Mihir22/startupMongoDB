@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Investor Details Page</title>
+    <%- include('./partials/css.ejs') %>
+  </head>
+  <body>
+    <div class="container">
+      <nav></nav>
+      <main class="row">
+        <%- include("./partials/navBar.ejs") %>
+      <h1>Edit Investor Details</h1>
+
+      <%- include("./partials/errMsg.ejs") %>
+        <div class="col-8">
+          <form action="/investor/ind/update" method="POST">
+            <div>
+              <input
+                  name="investorID"
+                  type="hidden"
+                  class="form-control"
+                  value="<%= investor._id %>"
+              />
+            </div>
+            <div>
+              <label class="form-label"
+                >Name:
+                <input
+                  required="true"
+                  name="name"
+                  type="text"
+                  class="form-control"
+                  value="<%= investor.commonDetails.name %>"
+              /></label>
+            </div>
+            <div>
+              <label class="form-label"
+                >Contact Info:
+                <input
+                  required="true"
+                  name="contactInfo"
+                  type="text"
+                  class="form-control"
+                  value="<%= investor.commonDetails.contactInfo %>"
+              /></label>
+            </div>
+            <div>
+              <label class="form-label"
+                >Country:
+                <input
+                  required="true"
+                  name="country"
+                  type="text"
+                  class="form-control"
+                  value="<%= investor.commonDetails.country %>"
+              /></label>
+            </div>
+            <div>
+              <label class="form-label"
+                >Birth Date:
+                <input
+                  required="true"
+                  name="birthdate"
+                  type="date"
+                  class="form-control"
+                  value="<%= investor.institutionalDetails.birthdate %>"
+              /></label>
+            </div>
+
+            <div>
+              <label class="form-label"
+                >Net Worth:
+                <input
+                  required="true"
+                  name="netWorth"
+                  type="number"
+                  class="form-control"
+                  value="<%= investor.institutionalDetails.netWorth %>"
+              /></label>
+            </div>
+
+            
+
+
+            <button type="submit" class="btn btn-primary">Update</button>
+          </form>
+        </div>
+        <!-- /.col-8 -->
+
+      </main>
+
+      <%- include("./partials/footer.ejs") %>
+    </div>
+  </body>
+</html>

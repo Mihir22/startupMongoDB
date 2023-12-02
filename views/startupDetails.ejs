@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create Startup</title>
+    <%- include('./partials/css.ejs') %>
+  </head>
+  <body>
+    <div class="container">
+      <%- include("./partials/navBar.ejs") %>
+      <h1>Startup Details</h1>
+
+      <%- include("./partials/errMsg.ejs") %>
+          <form action="/startup/update" method="POST">
+            <div>
+              <input
+                  name="startupID"
+                  type="hidden"
+                  class="form-control"
+                  value="<%= startup._id %>"
+              />
+            </div>
+            <div>
+              <label class="form-label"
+                >Name:
+                <input
+                  required="true"
+                  name="name"
+                  type="text"
+                  class="form-control"
+                  value="<%= startup.startupDetails.name %>"
+              /></label>
+            </div>
+            <div>
+              <label class="form-label"
+                >Category:
+                <input
+                  required="true"
+                  name="category"
+                  type="text"
+                  class="form-control"
+                  value="<%= startup.startupDetails.category %>"
+              /></label>
+            </div>
+            <div>
+              <label class="form-label"
+                >Funding Total:
+                <input
+                  required="true"
+                  name="fundingTotal"
+                  type="number"
+                  class="form-control"
+                  value="<%= startup.startupDetails.fundingTotal %>"
+              /></label>
+            </div>
+            <div>
+              <label class="form-label"
+                >Status:
+                <input
+                  required="true"
+                  value="active"
+                  name="status"
+                  type="text"
+                  class="form-control"
+                  value="<%= startup.startupDetails.status %>"
+              /></label>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Update</button>
+          </form>
+        </div>
+        <!-- /.col-8 -->
+
+      </main>
+
+      <%- include("./partials/footer.ejs") %>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Global Startup Database</title>
+    <%- include('./partials/css.ejs') %>
+  </head>
+  <body>
+
+    <div class="container">
+      <%- include("./partials/navBar.ejs") %>
+      <h1>Global Startup Database</h1>
+
+      <%- include("./partials/errMsg.ejs") %>
+
+      <div class="mb-4">
+        <a href="create/" class="btn btn-primary btn-sm">Create a Startup</a>
+      </div>
+      <div class="row">
+  
+
+        <% startup.forEach(function(f){ %>
+        <div class="col-4 mb-2">
+          <div class="card p-2">
+            <div class="card-title">
+              <label
+              >Name: <output><%= f.startupDetails.name %></output>
+            </label>
+            </div>
+            <div class="card-text">
+              
+              <div>
+                <label
+                  >Category: <output><%=  f.startupDetails.category %></output>
+                </label>
+              </div>
+              <div>
+                <label
+                  >Funding Total: <output><%=  f.startupDetails.fundingTotal %></output>
+                </label>
+              </div>
+              <div>
+                <label
+                  >Status: <output><%=  f.startupDetails.status %></output>
+                </label>
+              </div>
+
+              <div>
+                <a
+                  type="button"
+                  class="btn btn-outline-primary btn-sm"
+                  href="/startup/<%= f._id %>"
+                  >Edit</a
+                >
+
+                
+                <form action="/startup/delete/<%= f._id %>" method="POST">
+                  
+                <button
+                  type="submit"
+                  class="btn btn-outline-danger btn-sm"
+                  >Delete</button>
+              </div>
+            </div>
+            <!-- /.card-text -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col-4 -->
+
+        <% }); %>
+      </div>
+      <!-- /.row -->
+
+      <%- include("./partials/footer.ejs") %>
+    </div>
+    
+  </body>
+</html>
