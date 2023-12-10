@@ -74,9 +74,13 @@
                   class="btn btn-outline-danger btn-sm"
                   >Delete</button
                 >
-               
-                
                 </form>
+                <a
+                type="button"
+                class="btn btn-outline-primary btn-sm"
+                href="/investor/investsIn/<%= f.commonDetails.name %>"
+                >Investments</a
+              >
               </div>
             </div>
             <!-- /.card-text -->
@@ -135,13 +139,14 @@
                   class="btn btn-outline-danger btn-sm"
                   >Delete</button
                 >
+                
+                </form>
                 <a
                 type="button"
                 class="btn btn-outline-primary btn-sm"
-                href="/investor/invests-in/<%= f._id %>"
+                href="/investor/investsIn/<%= f.commonDetails.name %>"
                 >Investments</a
               >
-                </form>
               </div>
             </div>
             <!-- /.card-text -->

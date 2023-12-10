@@ -263,6 +263,67 @@ router.get('/investor/invests-in/:id', async function(req, res) {
 });
 
 
+router.get("/investor/investsIn/:id", async function (req, res) {
+  
+  
+  try {
+    const id = req.params.id;
+    
+
+  const investments = await myDB.getInvestments(id);
+  
+  const allStartups = await myDB.getStartup();
+
+  
+
+  res.render("investsIn", {id: id,investments: investments,allStartups: allStartups,err: null,
+  type: "success"});
+  } catch (exception) {
+  //   res.render("startupDetails", {startups: startup,err: `Error executing SQL ${exception}`,
+  // type: "danger"});
+  }
+
+  
+});
+
+
+router.post("/investor/addInvestment/:id", async function (req, res) {
+  
+ 
+  const investor_id = req.params.id;
+  const startup_id = req.body.startupID;
+
+  console.log(investor_id);
+  console.log(startup_id)
+
+
+await myDB.addInvestments(investor_id, startup_id);
+
+
+res.redirect("/investor/investsIn/"+investor_id);
+
+
+});
+
+router.post("/investor/deleteInvestment/:id", async function (req, res) {
+  
+ 
+  const investor_id = req.params.id;
+  const startup_id = req.body.startupID;
+
+  console.log(investor_id);
+  console.log(startup_id)
+
+
+await myDB.deleteInvestments(investor_id, startup_id);
+
+
+res.redirect("/investor/investsIn/"+investor_id);
+
+
+});
+
+
 
 
 

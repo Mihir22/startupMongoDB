@@ -2,6 +2,7 @@ const sqlite3 = require("sqlite3");
 const { open } = require("sqlite");
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
+const redis = require('redis');
 
 sqlite3.verbose();
 
@@ -53,6 +54,7 @@ async function createStartup(newStartup) {
   const startups = db.collection("Startups");
   try {
     
+    await redisClient.connect();
     const startupDocument = {
       startupDetails: {
         name: newStartup.name,
@@ -180,8 +182,15 @@ async function updateStartup(startup) {
   const client = await connect();
   const db = client.db("test");
   const startups = db.collection("Startups");
+  const redisClient = redis.createClient();
+
+    redisClient.on('error', (err) => {
+        console.log('Redis Client Error', err);
+    });
 
   try {
+
+    await redisClient.connect();
 
     const id = new ObjectId(startup.startupID);
    
@@ -195,6 +204,14 @@ async function updateStartup(startup) {
       }
     };
 
+    await redisClient.hSet(`startup:${startup.startupID}`, {
+      'startup_id': startup.startupID,
+        'name':startup.name, 
+        'category':startup.category,
+        'fundingTotal':startup.fundingTotal,
+        'status':startup.status
+           
+    });
     
     return await startups.updateOne(filter, update);
   } finally {
@@ -326,6 +343,85 @@ async function updateIndInvestorByID(investor) {
   
 }
 
+async function getInvestments(id) {
+  const redisClient = redis.createClient();
+
+    redisClient.on('error', (err) => {
+        console.log('Redis Client Error', err);
+    });
+
+    try {
+      await redisClient.connect();
+      const setKey = `investments:${id}`;
+
+      
+      const startupLists = await redisClient.SMEMBERS(setKey);
+      
+      const investmentsDetails = [];
+      for (const key of startupLists) {
+        const details = await redisClient.HGETALL(`startup:${key}`);
+        investmentsDetails.push(details);
+    }
+
+   
+    
+  
+    return investmentsDetails;
+    } catch (err) {
+      console.log(err);
+      return [];
+    } finally {
+      await redisClient.quit();
+    }
+  
+}
+
+async function addInvestments(investor, startup) {
+  const redisClient = redis.createClient();
+
+    redisClient.on('error', (err) => {
+        console.log('Redis Client Error', err);
+    });
+
+    try {
+      await redisClient.connect();
+
+      
+      await redisClient.SADD(`investments:${investor}`,startup);
+  
+    
+    } catch (err) {
+      console.log(err);
+      
+    } finally {
+      await redisClient.quit();
+    }
+  
+}
+
+async function deleteInvestments(investor, startup) {
+  const redisClient = redis.createClient();
+
+    redisClient.on('error', (err) => {
+        console.log('Redis Client Error', err);
+    });
+
+    try {
+      await redisClient.connect();
+
+      
+      await redisClient.SREM(`investments:${investor}`,startup);
+  
+    
+    } catch (err) {
+      console.log(err);
+      
+    } finally {
+      await redisClient.quit();
+    }
+  
+}
+
 
 
 
@@ -345,3 +441,6 @@ module.exports.getInstInvestorByID = getInstInvestorByID;
 module.exports.updateInstInvestorByID = updateInstInvestorByID;
 module.exports.updateIndInvestorByID = updateIndInvestorByID;
 module.exports.getIndInvestorByID = getIndInvestorByID;
+module.exports.getInvestments = getInvestments;
+module.exports.addInvestments = addInvestments;
+module.exports.deleteInvestments = deleteInvestments;
