@@ -37,7 +37,7 @@ This app will let you do the following
 10) npm start
 
 ## Screen Shots
-<img width="1504" alt="Screenshot 2023-12-11 at 3 49 40 PM" src="https://github.com/Mihir22/startupMongoDB/assets/44001096/11746d47-d707-45e0-8ef3-84d80fe98f43">
+<img width="1508" alt="Screenshot 2023-12-11 at 3 50 22 PM" src="https://github.com/Mihir22/startupMongoDB/assets/44001096/33784fd9-18ce-43f2-8f90-6bc60ff7cbd1">
 
 <img width="1504" alt="Screenshot 2023-12-11 at 3 49 40 PM" src="https://github.com/Mihir22/startupMongoDB/assets/44001096/0cbc17f6-c515-41ee-b172-58959d0ad9d5">
 
